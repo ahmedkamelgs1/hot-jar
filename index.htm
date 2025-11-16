@@ -1,12 +1,955 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://t.contentsquare.net/uxa/b482e06416880.js"></script>
-  </head>
-  <body>
-    <h1>Hotjar</h1>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Premium Electronics</title>
+        <script src="https://t.contentsquare.net/uxa/b482e06416880.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: white;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: #ff4757;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        .reviews {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            padding: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-add-cart:hover {
+            background: #5568d3;
+        }
+
+        .btn-wishlist {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-wishlist:hover {
+            background: #ff4757;
+            color: white;
+            border-color: #ff4757;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 20px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .btn-subscribe {
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-subscribe:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 20px 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+
+        /* Product Detail Page */
+        .product-detail {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .product-detail-image {
+            text-align: center;
+            font-size: 15rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .product-detail-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-detail-price {
+            font-size: 2.5rem;
+            color: #667eea;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .product-description {
+            color: #666;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .product-features {
+            margin: 2rem 0;
+        }
+
+        .product-features h3 {
+            margin-bottom: 1rem;
+        }
+
+        .product-features ul {
+            list-style: none;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .quantity-display {
+            font-size: 1.5rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-large {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .product-detail-image {
+                font-size: 10rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">🛒 TechStore</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a onclick="showPage('home')">Home</a></li>
+                    <li><a onclick="scrollToProducts()">Products</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#newsletter">Newsletter</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="alert('Search coming soon!')">🔍</button>
+                <button class="icon-btn" onclick="alert('Login coming soon!')">👤</button>
+                <button class="icon-btn">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to TechStore</h1>
+            <p>Discover the latest in technology and electronics</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollToProducts()">Shop Now</button>
+                <button class="btn btn-secondary" onclick="alert('Learn more about our products!')">Learn More</button>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="feature-card" onclick="alert('Free shipping on orders over $50!')">
+                <div class="feature-icon">🚚</div>
+                <h3>Free Shipping</h3>
+                <p>On orders over $50</p>
+            </div>
+            <div class="feature-card" onclick="alert('30-day money back guarantee!')">
+                <div class="feature-icon">🛡️</div>
+                <h3>Secure Payment</h3>
+                <p>100% secure transactions</p>
+            </div>
+            <div class="feature-card" onclick="alert('24/7 customer support available!')">
+                <div class="feature-icon">📞</div>
+                <h3>24/7 Support</h3>
+                <p>Always here to help</p>
+            </div>
+            <div class="feature-card" onclick="alert('Best prices guaranteed!')">
+                <div class="feature-icon">💰</div>
+                <h3>Best Prices</h3>
+                <p>Unbeatable deals</p>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                    <button class="filter-btn" onclick="filterProducts('electronics')">Electronics</button>
+                    <button class="filter-btn" onclick="filterProducts('wearables')">Wearables</button>
+                    <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="electronics" onclick="showProductDetail(1)">
+                    <div class="product-image">🎧</div>
+                    <span class="product-badge">BESTSELLER</span>
+                    <h3 class="product-name">Wireless Headphones Pro</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐⭐</span>
+                        <span class="reviews">(328 reviews)</span>
+                    </div>
+                    <div class="product-price">$149.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(1, 'Wireless Headphones Pro', 149.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-category="wearables" onclick="showProductDetail(2)">
+                    <div class="product-image">⌚</div>
+                    <span class="product-badge">NEW</span>
+                    <h3 class="product-name">Smart Fitness Watch</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐⭐</span>
+                        <span class="reviews">(542 reviews)</span>
+                    </div>
+                    <div class="product-price">$199.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(2, 'Smart Fitness Watch', 199.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-category="accessories" onclick="showProductDetail(3)">
+                    <div class="product-image">🔋</div>
+                    <span class="product-badge">SALE</span>
+                    <h3 class="product-name">Portable Power Bank</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐☆</span>
+                        <span class="reviews">(215 reviews)</span>
+                    </div>
+                    <div class="product-price">$49.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(3, 'Portable Power Bank', 49.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-category="electronics" onclick="showProductDetail(4)">
+                    <div class="product-image">📱</div>
+                    <h3 class="product-name">Wireless Charging Pad</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐☆</span>
+                        <span class="reviews">(187 reviews)</span>
+                    </div>
+                    <div class="product-price">$39.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(4, 'Wireless Charging Pad', 39.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-category="electronics" onclick="showProductDetail(5)">
+                    <div class="product-image">🎮</div>
+                    <span class="product-badge">HOT</span>
+                    <h3 class="product-name">Gaming Mouse RGB</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐⭐</span>
+                        <span class="reviews">(412 reviews)</span>
+                    </div>
+                    <div class="product-price">$79.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(5, 'Gaming Mouse RGB', 79.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-category="accessories" onclick="showProductDetail(6)">
+                    <div class="product-image">🎒</div>
+                    <h3 class="product-name">Tech Backpack Pro</h3>
+                    <div class="product-rating">
+                        <span class="stars">⭐⭐⭐⭐☆</span>
+                        <span class="reviews">(298 reviews)</span>
+                    </div>
+                    <div class="product-price">$89.99</div>
+                    <div class="product-actions">
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(6, 'Tech Backpack Pro', 89.99)">Add to Cart</button>
+                        <button class="btn-wishlist" onclick="event.stopPropagation(); addToWishlist()">❤️</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter" id="newsletter">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates on new products and exclusive offers</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" id="emailInput" required>
+                <button type="submit" class="btn-subscribe">Subscribe</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="productDetailPage" class="hidden">
+        <div class="product-detail">
+            <div class="product-detail-image" id="detailImage">🎧</div>
+            <div class="product-detail-info">
+                <h1 id="detailName">Wireless Headphones Pro</h1>
+                <div class="product-rating">
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                    <span class="reviews" id="detailReviews">(328 reviews)</span>
+                </div>
+                <div class="product-detail-price" id="detailPrice">$149.99</div>
+                <p class="product-description" id="detailDescription">
+                    Premium noise-cancelling headphones with exceptional sound quality and 30-hour battery life. 
+                    Perfect for music lovers and professionals who demand the best audio experience.
+                </p>
+                <div class="product-features">
+                    <h3>Key Features:</h3>
+                    <ul id="detailFeatures">
+                        <li>Active Noise Cancellation</li>
+                        <li>Bluetooth 5.0 Connectivity</li>
+                        <li>30-hour Battery Life</li>
+                        <li>Premium Sound Quality</li>
+                        <li>Comfortable Over-Ear Design</li>
+                    </ul>
+                </div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                    <span class="quantity-display" id="quantityDisplay">1</span>
+                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+                <div class="detail-actions">
+                    <button class="btn btn-primary btn-large" onclick="addToCartFromDetail()">Add to Cart</button>
+                    <button class="btn btn-secondary btn-large" onclick="showPage('home')">Back to Shop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About TechStore</h3>
+                <p>Your one-stop shop for premium electronics and tech accessories. Quality products at unbeatable prices.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="scrollToProducts()">Products</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#newsletter">Newsletter</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TechStore. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        let cartCount = 0;
+        let currentQuantity = 1;
+        let currentProduct = null;
+
+        const productData = {
+            1: { name: 'Wireless Headphones Pro', price: 149.99, image: '🎧', reviews: 328, description: 'Premium noise-cancelling headphones with exceptional sound quality and 30-hour battery life.', features: ['Active Noise Cancellation', 'Bluetooth 5.0 Connectivity', '30-hour Battery Life', 'Premium Sound Quality', 'Comfortable Over-Ear Design'] },
+            2: { name: 'Smart Fitness Watch', price: 199.99, image: '⌚', reviews: 542, description: 'Track your fitness goals with advanced health monitoring and GPS functionality.', features: ['Heart Rate Monitor', 'GPS Tracking', 'Waterproof Design', 'Sleep Analysis', '7-Day Battery Life'] },
+            3: { name: 'Portable Power Bank', price: 49.99, image: '🔋', reviews: 215, description: 'High-capacity 20000mAh power bank to keep your devices charged on the go.', features: ['20000mAh Capacity', 'Fast Charging', 'Dual USB Ports', 'LED Indicator', 'Compact Design'] },
+            4: { name: 'Wireless Charging Pad', price: 39.99, image: '📱', reviews: 187, description: 'Sleek wireless charging solution for your smartphone and accessories.', features: ['Fast Wireless Charging', 'Universal Compatibility', 'LED Indicator', 'Non-Slip Surface', 'Slim Design'] },
+            5: { name: 'Gaming Mouse RGB', price: 79.99, image: '🎮', reviews: 412, description: 'Professional gaming mouse with customizable RGB lighting and precision sensor.', features: ['16000 DPI Sensor', 'RGB Lighting', '8 Programmable Buttons', 'Ergonomic Design', 'Braided Cable'] },
+            6: { name: 'Tech Backpack Pro', price: 89.99, image: '🎒', reviews: 298, description: 'Professional backpack designed for tech enthusiasts with dedicated laptop compartment.', features: ['Laptop Compartment (up to 17")', 'USB Charging Port', 'Water-Resistant Material', 'Multiple Pockets', 'Ergonomic Straps'] }
+        };
+
+        function addToCart(id, name, price) {
+            cartCount++;
+            document.getElementById('cartCount').textContent = cartCount;
+            showNotification(`${name} added to cart!`);
+        }
+
+        function addToCartFromDetail() {
+            if (currentProduct) {
+                const product = productData[currentProduct];
+                cartCount += currentQuantity;
+                document.getElementById('cartCount').textContent = cartCount;
+                showNotification(`${currentQuantity}x ${product.name} added to cart!`);
+            }
+        }
+
+        function addToWishlist() {
+            showNotification('Added to wishlist! ❤️');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function showProductDetail(id) {
+            const product = productData[id];
+            currentProduct = id;
+            currentQuantity = 1;
+
+            document.getElementById('detailImage').textContent = product.image;
+            document.getElementById('detailName').textContent = product.name;
+            document.getElementById('detailPrice').textContent = `${product.price}`;
+            document.getElementById('detailReviews').textContent = `(${product.reviews} reviews)`;
+            document.getElementById('detailDescription').textContent = product.description;
+            
+            const featuresList = document.getElementById('detailFeatures');
+            featuresList.innerHTML = '';
+            product.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+
+            document.getElementById('quantityDisplay').textContent = currentQuantity;
+
+            showPage('detail');
+            window.scrollTo(0, 0);
+        }
+
+        function changeQuantity(change) {
+            currentQuantity = Math.max(1, currentQuantity + change);
+            document.getElementById('quantityDisplay').textContent = currentQuantity;
+        }
+
+        function showPage(page) {
+            const homePage = document.getElementById('homePage');
+            const detailPage = document.getElementById('productDetailPage');
+
+            if (page === 'home') {
+                homePage.classList.remove('hidden');
+                detailPage.classList.add('hidden');
+            } else if (page === 'detail') {
+                homePage.classList.add('hidden');
+                detailPage.classList.remove('hidden');
+            }
+        }
+
+        function scrollToProducts() {
+            showPage('home');
+            setTimeout(() => {
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            showNotification(`Thank you for subscribing with ${email}!`);
+            document.getElementById('emailInput').value = '';
+        }
+    </script>
+</body>
 </html>
